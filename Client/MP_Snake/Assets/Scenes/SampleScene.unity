@@ -5071,6 +5071,7 @@ MonoBehaviour:
   _playerAim: {fileID: 3834214620363852843, guid: b5de79c4df964af4fa06263bb31b7aa2, type: 3}
   _controllerPrefab: {fileID: 4281595634007151407, guid: 0d86bdeecd8012141b0f1dede82c51b6, type: 3}
   _snakePrefab: {fileID: 4688353063474188278, guid: 9c5a2af9ff4b4194e97afe953fb41c39, type: 3}
+  _applePrefab: {fileID: 3866864196458232513, guid: 2ee6819f19cc9ff42a66ffca1232244f, type: 3}
 --- !u!4 &1265595968
 Transform:
   m_ObjectHideFlags: 0

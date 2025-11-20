@@ -54,37 +54,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0.5, z: 0}
---- !u!1 &5842979871975940350
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7494478167630907994}
-  m_Layer: 0
-  m_Name: DirectionPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7494478167630907994
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5842979871975940350}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7068296113009720286}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7851272334908434936
 GameObject:
   m_ObjectHideFlags: 0
@@ -116,7 +85,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6069073974392510993}
-  - {fileID: 7494478167630907994}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4688353063474188278
@@ -132,10 +100,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Snake
   _tailPrefab: {fileID: 7613834269256545939, guid: f386e43968b28904a8f7851363102590, type: 3}
-  _head: {fileID: 6069073974392510993}
-  _directionPoint: {fileID: 7494478167630907994}
+  <_head>k__BackingField: {fileID: 6069073974392510993}
   _speed: 6
-  _rotateSpeed: 90
 --- !u!1001 &48671492084928687
 PrefabInstance:
   m_ObjectHideFlags: 0
