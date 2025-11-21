@@ -31,6 +31,9 @@ public class EnemyController : MonoBehaviour
                 case "d":
                     _snake.SetDetailCount((byte)changes[i].Value);
                     break;
+                case "score":
+                    MultiplayerManager.Instance.UpdateScore(_clientID, (ushort)changes[i].Value);
+                    break;
                 default:
                     Debug.LogWarning("Не обрабатывается изменение поля " +  changes[i].Field);
                     break;
