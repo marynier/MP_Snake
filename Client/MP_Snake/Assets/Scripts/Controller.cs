@@ -10,21 +10,25 @@ public class Controller : MonoBehaviour
     [SerializeField] private Transform _cursor;
     private MultiplayerManager _multiplayerManager;
     private PlayerAim _playerAim;
+    private string _clientID;
     private Player _player;
     private Snake _snake;
     private Camera _camera;
     private Plane _plane;
 
-    public void Init(PlayerAim aim, Player player, Snake snake)
+    public void Init(string clientID, PlayerAim aim, Player player, Snake snake)
     {
         _multiplayerManager = MultiplayerManager.Instance;
         _playerAim = aim;
+        _clientID = clientID;
         _player = player;
         _snake = snake;
         _camera = Camera.main;
         _plane = new Plane(Vector3.up, Vector3.zero);
 
-        _snake.AddComponent<CameraManager>().Init(_cameraOffsetY);
+        _camera.transform.parent = _snake.transform;
+        _camera.transform.localPosition = Vector3.up * _cameraOffsetY;
+
         _player.OnChange += OnChange;
 
     }
@@ -85,7 +89,9 @@ public class Controller : MonoBehaviour
 
     public void Destroy()
     {
+        _camera.transform.parent = null;
         _player.OnChange -= OnChange;
-        _snake.Destroy();
+        _snake.Destroy(_clientID);
+        Destroy(gameObject);
     }
 }

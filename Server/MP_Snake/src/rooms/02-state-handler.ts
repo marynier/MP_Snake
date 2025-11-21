@@ -11,8 +11,7 @@ export class Player extends Schema {
     @type("number") x = Math.floor(Math.random() * 256) -128; 
     @type("number") z = Math.floor(Math.random() * 256) -128;
     @type("uint8") d = 0;
-    @type("uint16") score = 0;
-    
+    @type("uint16") score = 0;    
 }
 
 export class State extends Schema {
@@ -20,6 +19,7 @@ export class State extends Schema {
     @type([Vector2Float]) apples = new ArraySchema<Vector2Float>();
     
     appleLastId = 0;
+    gameOverIDs = [];
 
     createApple(){
         const apple = new Vector2Float();
@@ -43,18 +43,49 @@ export class State extends Schema {
     }
 
     removePlayer(sessionId: string) {
-        this.players.delete(sessionId);
+        if(this.players.has(sessionId)){
+           this.players.delete(sessionId); 
+        };        
     }
 
     movePlayer (sessionId: string, movement: any) {
         this.players.get(sessionId).x = movement.x;
         this.players.get(sessionId).z = movement.z;
     }
+    
+    gameOver(data){
+        const detailsPositions = JSON.parse(data);
+        const clientID = detailsPositions.id;
+
+        const gameOverID = this.gameOverIDs.find((value) => value === clientID);
+        if(gameOverID !== undefined) return;
+        this.gameOverIDs.push(clientID);
+        this.delayClearGameOverIDs(clientID);
+
+        this.removePlayer(clientID);               
+
+        for(let i = 0; i < detailsPositions.ds.length; i++){
+            const apple = new Vector2Float();
+            apple.id = this.appleLastId ++;
+            apple.x = detailsPositions.ds[i].x;
+            apple.z = detailsPositions.ds[i].z;
+            this.apples.push(apple); 
+        }
+    }
+
+    async delayClearGameOverIDs(clientID){
+        await new Promise(resolve => setTimeout(resolve, 10000));
+
+        const index = this.gameOverIDs.findIndex((value) => value === clientID);
+        if(index <= -1) return; //ненайденные значения принимают индекс -1
+
+        this.gameOverIDs.splice(index, 1); //удалит 1 элемент начиная с индекса
+    }
 }
 
 export class StateHandlerRoom extends Room<State> {
-    maxClients = 4;
-    startAppleCount = 100;
+    maxClients = 40;
+    startAppleCount = 100;    
 
     onCreate (options) {
         this.setState(new State());
@@ -69,6 +100,10 @@ export class StateHandlerRoom extends Room<State> {
             this.state.collectApple(player, data);
         });
 
+        this.onMessage("gameOver", (client, data) => {
+            this.state.gameOver(data);
+        });            
+        
         for(let i = 0; i < this.startAppleCount; i++){
             this.state.createApple();
         }

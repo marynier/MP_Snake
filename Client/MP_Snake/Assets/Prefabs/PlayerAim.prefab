@@ -134,4 +134,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebfeda5139daee4409219acfef0ddb6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAim
+  _collisionLayer:
+    serializedVersion: 2
+    m_Bits: 55
+  _overlapRadius: 0.5
   _rotateSpeed: 90
